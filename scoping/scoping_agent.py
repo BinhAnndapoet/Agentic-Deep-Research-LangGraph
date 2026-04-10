@@ -16,7 +16,7 @@ Responsibilities:
 
 from datetime import datetime
 from typing import Literal
-from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.graph import StateGraph, START, END
 
 from config import llm_logic
