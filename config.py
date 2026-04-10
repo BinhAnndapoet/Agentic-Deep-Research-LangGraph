@@ -2,6 +2,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_ollama import ChatOllama
 import os
 from dotenv import load_dotenv
 
@@ -14,25 +15,46 @@ if not GEMINI_API_KEY:
 
 
 # LLM dành cho các tác vụ Logic, Trích xuất, Giám sát (Cần độ chính xác cao)
-llm_logic = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+llm_logic = ChatOllama(
+    model="llama3.1", 
     temperature=0.1,
-    max_retries=3
+    max_retries=3,
 )
 
 # LLM dành cho Agent tìm kiếm (ReAct) - Cân bằng giữa logic và linh hoạt
-llm_researcher = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+llm_researcher = ChatOllama(
+    model="llama3.1", 
     temperature=0.2,
     max_retries=3
 )
 
 # LLM dành cho viết báo cáo cuối cùng (Văn phong tự nhiên hơn)
-llm_writer = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+llm_writer = ChatOllama(
+    model="llama3.1", 
     temperature=0.4,
     max_retries=3
 )
+
+
+# llm_logic = ChatGoogleGenerativeAI(
+#     model="gemini-2.5-flash",
+#     temperature=0.1,
+#     max_retries=3
+# )
+
+# # LLM dành cho Agent tìm kiếm (ReAct) - Cân bằng giữa logic và linh hoạt
+# llm_researcher = ChatGoogleGenerativeAI(
+#     model="gemini-2.5-flash",
+#     temperature=0.2,
+#     max_retries=3
+# )
+
+# # LLM dành cho viết báo cáo cuối cùng (Văn phong tự nhiên hơn)
+# llm_writer = ChatGoogleGenerativeAI(
+#     model="gemini-2.5-flash",
+#     temperature=0.4,
+#     max_retries=3
+# )
 
 
 # Số vòng lặp tối đa cho mỗi Researcher Agent (Tránh infinite loop)
