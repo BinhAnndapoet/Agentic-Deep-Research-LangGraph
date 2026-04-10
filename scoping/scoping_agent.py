@@ -16,7 +16,7 @@ Responsibilities:
 
 from datetime import datetime
 from typing import Literal
-from langchain_core.messages import AIMessage, SystemMessage
+from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 from langgraph.graph import StateGraph, START, END
 
 from config import llm_logic
@@ -89,7 +89,7 @@ def clarify_node(state: ScopingState):
     
     # Enforce structured JSON output from the LLM
     structured_clarifier = llm_logic.with_structured_output(ClarifyWithUser)
-    response: ClarifyWithUser = structured_clarifier.invoke([SystemMessage(content=formatted_prompt)])
+    response: ClarifyWithUser = structured_clarifier.invoke([HumanMessage(content=formatted_prompt)])
     
     if response.need_clarification:
         return {
@@ -129,7 +129,7 @@ def write_brief_node(state: ScopingState):
     )
     
     structured_brief_writer = llm_logic.with_structured_output(ResearchQuestion)
-    response: ResearchQuestion = structured_brief_writer.invoke([SystemMessage(content=formatted_prompt)])
+    response: ResearchQuestion = structured_brief_writer.invoke([HumanMessage(content=formatted_prompt)])
     
     print("\n[Scoping] Research brief successfully generated.")
     return {
